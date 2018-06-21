@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cursor.demo.mapper.NameListMapper" >
+  <resultMap id="BaseResultMap" type="com.cursor.demo.pojo.NameList" >
+    <constructor >
+      <idArg column="ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UNIQUE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EXPIRES_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="COMMENTS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SOURCE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TAG" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MODIFIER" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, UNIQUE_ID, NAME, STATUS, EXPIRES_DATE, COMMENTS, SOURCE, TAG, TYPE, CREATE_TIME, 
+    UPDATE_TIME, MODIFIER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cursor.demo.pojo.NameListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nl_ol_name_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from nl_ol_name_list
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from nl_ol_name_list
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cursor.demo.pojo.NameListExample" >
+    delete from nl_ol_name_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cursor.demo.pojo.NameList" >
+    insert into nl_ol_name_list (ID, UNIQUE_ID, NAME, 
+      STATUS, EXPIRES_DATE, COMMENTS, 
+      SOURCE, TAG, TYPE, 
+      CREATE_TIME, UPDATE_TIME, MODIFIER
+      )
+    values (#{id,jdbcType=BIGINT}, #{uniqueId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{expiresDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cursor.demo.pojo.NameList" >
+    insert into nl_ol_name_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="uniqueId != null" >
+        UNIQUE_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="expiresDate != null" >
+        EXPIRES_DATE,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="tag != null" >
+        TAG,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="modifier != null" >
+        MODIFIER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueId != null" >
+        #{uniqueId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="expiresDate != null" >
+        #{expiresDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cursor.demo.pojo.NameListExample" resultType="java.lang.Integer" >
+    select count(*) from nl_ol_name_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nl_ol_name_list
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uniqueId != null" >
+        UNIQUE_ID = #{record.uniqueId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.expiresDate != null" >
+        EXPIRES_DATE = #{record.expiresDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.comments != null" >
+        COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        SOURCE = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        TAG = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifier != null" >
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nl_ol_name_list
+    set ID = #{record.id,jdbcType=BIGINT},
+      UNIQUE_ID = #{record.uniqueId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      EXPIRES_DATE = #{record.expiresDate,jdbcType=TIMESTAMP},
+      COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      SOURCE = #{record.source,jdbcType=VARCHAR},
+      TAG = #{record.tag,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cursor.demo.pojo.NameList" >
+    update nl_ol_name_list
+    <set >
+      <if test="uniqueId != null" >
+        UNIQUE_ID = #{uniqueId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="expiresDate != null" >
+        EXPIRES_DATE = #{expiresDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cursor.demo.pojo.NameList" >
+    update nl_ol_name_list
+    set UNIQUE_ID = #{uniqueId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      EXPIRES_DATE = #{expiresDate,jdbcType=TIMESTAMP},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      TAG = #{tag,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+
+
+</mapper>

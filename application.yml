@@ -1,0 +1,91 @@
+#标准DS库配置
+cursor:
+ jdbcUrl: jdbc:mysql://10.200.2.112:3307/online_portal?zeroDateTimeBehavior=convertToNull
+ username: bangsun
+ password: lvmamafk
+ driverClassName: com.mysql.jdbc.Driver
+ connectionTestQuery: SELECT 1
+ maximumPoolSize: 20
+ minimumIdle: 10
+ defaultAutoCommit: false
+ maxLifetime: 2000000
+ connectionTimeout: 30000
+ idleTimeout: 300000
+ jdbc.type: Mysql
+
+
+
+push.namelist:
+ cursor.path: E:\Cursor
+ search.exclude.type: white
+ duration: 14400000l
+ enable: true
+ fixedRate: 2000
+ maxContinuousEmptyCount: 5
+
+ # 打印sql
+logging:
+   level:
+        com.cursor.demo.mapper: DEBUG
+   config: file:./logback.xml
+   file: logs/cursor
+
+
+# ENDPOINTS (AbstractEndpoint subclasses)
+endpoints:
+  autoconfig:
+    id: autoconfig
+    sensitive: true
+    enabled: true
+  beans:
+    id: beans
+    sensitive: true
+    enabled: true
+  configprops:
+    id: configprops
+    sensitive: true
+    enabled: true
+    keys-to-sanitize: password,secret
+  dump:
+    id: dump
+    sensitive: true
+    enabled: true
+  env:
+    id: env
+    sensitive: true
+    enabled: true
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+  info:
+    id: info
+    sensitive: false
+    enabled: true
+  metrics:
+    id: metrics
+    sensitive: true
+    enabled: true
+  shutdown:
+    id: shutdown
+    sensitive: true
+    enabled: false
+  trace:
+    id: trace
+    sensitive: true
+    enabled: true
+
+
+
+#server:
+#  port: 8161
+#spring:
+#  activemq:
+#    broker-url: tcp://10.113.1.70:61616
+#    user: admin
+#    password: admin
+#  jms:
+#    pub-sub-domain: true
+
+
+
