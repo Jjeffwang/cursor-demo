@@ -1,4 +1,3 @@
-#标准DS库配置
 cursor:
  jdbcUrl: jdbc:mysql://127.0.0.1:3306/mydb?zeroDateTimeBehavior=convertToNull
  username: root
